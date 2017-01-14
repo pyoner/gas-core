@@ -1,6 +1,5 @@
 import { getLog } from '../monkeys/process';
-
-const WEB_TYPES = ['doGet', 'doPost'];
+import { WEB_TYPES } from '../core';
 
 export function webActionMiddleware(name, actions) {
     return (type) => {

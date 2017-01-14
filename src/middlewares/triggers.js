@@ -1,4 +1,5 @@
 import EventEmitter from 'events';
+import { TRIGGER_TYPES } from '../core';
 
 export const EVENT_PREFIX = {
     onOpen: 'Open',
@@ -12,6 +13,9 @@ class TriggerEmitter extends EventEmitter {}
 export const emitter = new TriggerEmitter();
 
 export function triggerMiddleware(type) {
+    if (TRIGGER_TYPES.indexOf(type) === -1) {
+        return false;
+    }
     return (next) => (event) => {
         let name = EVENT_PREFIX[type];
         emitter.emit(`before${name}`, event);

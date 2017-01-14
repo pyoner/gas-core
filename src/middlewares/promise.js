@@ -1,6 +1,6 @@
 export default function promiseMiddleware(type) {
-    return (next) => (event) => {
-        let result = next(event);
+    return (next) => (...args) => {
+        let result = next(...args);
         if (result instanceof Promise) {
             let value = null;
             let obj = {

@@ -27,10 +27,10 @@ function valueOf(obj) {
 }
 
 export function schedulerMiddleware(type) {
-    return (next) => (event) => {
+    return (next) => (...args) => {
         let result;
         try {
-            result = next(event);
+            result = next(...args);
         } catch (err) {
             logUncaughtException(err);
         } finally {
