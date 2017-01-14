@@ -10,6 +10,8 @@ test('core initApp', (t) => {
         onEdit: identity,
         doPost: identity,
         doGet: identity,
+        fn: identity,
+        x: 5,
     }
 
     t.test('test context', (t) => {
@@ -55,6 +57,18 @@ test('core initApp', (t) => {
         initApp(app, [middleware, middleware], context);
 
         t.equal(context.doGet(1), 3);
+        t.end();
+    });
+
+    t.test('test initApp does not warp not function objects in context/app', (t) => {
+        let context = {};
+        let middleware = (type, app_) => {
+            t.equal(app_, app);
+            return (next) => (event) => 1 + next(event)
+        };
+        initApp(app, [middleware, middleware], context);
+
+        t.equal(context.x, 5);
         t.end();
     });
 });
